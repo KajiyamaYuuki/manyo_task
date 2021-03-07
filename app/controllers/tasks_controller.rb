@@ -11,8 +11,9 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to tasks_path
+      redirect_to root_path, notice: 'タスクを新規作成しました'
     else
+      flash.now[:alert] = 'タスクを作成できません'
       render :new
     end
   end
