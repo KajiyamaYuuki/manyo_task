@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[show, edit]
+  before_action :set_task, only: %i[show edit update]
   def index
     @task = Task.all
   end
@@ -22,6 +22,15 @@ class TasksController < ApplicationController
 
   def edit; end
 
+  def update
+    if @task.update(task_params)
+      redirect_to root_path, notice: 'タスクを更新しました'
+    else
+      flash.now[:alert] = 'タスクを更新できません'
+      render :edit
+    end
+  end
+
   private
 
   def task_params
@@ -29,6 +38,6 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = Task.find([:id])
+    @task = Task.find(params[:id])
   end
 end
