@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[show edit update]
+  before_action :set_task, only: %i[show edit update destroy]
   def index
     @task = Task.all
   end
@@ -29,6 +29,11 @@ class TasksController < ApplicationController
       flash.now[:alert] = 'タスクを更新できません'
       render :edit
     end
+  end
+
+  def destroy
+    @task.destroy
+    redirect_to root_path, notice: 'タスクを削除しました'
   end
 
   private
