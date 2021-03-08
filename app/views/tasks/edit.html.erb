@@ -1,14 +1,4 @@
 <h1>Tasks#edit</h1>
 <p>Find me in app/views/tasks/edit.html.erb</p>
 
-<%= flash[:alert] %>
-
-<%= form_with(model: @task, local: true) do |f| %>
-<div class="field">
-  <%= f.label :title, "タイトル" %>
-  <%= f.text_field :title %>
-  <%= f.label :content, "詳細" %>
-  <%= f.text_field :content %>
-</div>
-<%= f.submit "タスクを更新" %>
-<% end %>
+<%= render "form" %>

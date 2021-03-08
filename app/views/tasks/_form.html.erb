@@ -1,0 +1,16 @@
+<%= flash[:alert] %>
+
+<%= form_with(model: @task, local: true) do |f| %>
+    <% if @task.errors.any? %>
+      <% @task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    <% end %>
+  <div class="field">
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title %>
+    <%= f.label :content, "詳細" %>
+    <%= f.text_field :content %>
+  </div>
+    <%= f.submit button_text %>
+<% end %>

@@ -1,9 +1,5 @@
 {
-  "files.trimFinalNewlines": true,
-  "files.insertFinalNewline": true,
-  "files.trimTrailingWhitespace": true,
-  "editor.formatOnSave": true,
-  "beautify.language": {
-    "html": ["htm", "html", "erb"]
+  "[ruby]": {
+    "editor.formatOnSave": true
   }
 }
