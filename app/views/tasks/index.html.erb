@@ -3,10 +3,18 @@
 
 <%= notice %>
 
-<% @task.each do |task| %>
-  <p><%= task.title %></p>
-  <p><%= task.content %></p>
-  <%= link_to "詳細", task_path(task.id) %>
-  <%= link_to "編集", edit_task_path(task.id) %>
-  <%= link_to "削除", task_path(task.id), method: :delete %>
-<% end %>
+<table>
+  <tr>
+    <th>タスク名</th>
+    <th>詳細</th>
+  </tr>
+  <% @task.each do |task| %>
+    <tr id="task_row">
+      <td><%= task.title %></td>
+      <td><%= task.content %></td>
+      <td><%= link_to "詳細", task_path(task.id) %></td>
+      <td><%= link_to "編集", edit_task_path(task.id) %></td>
+      <td><%= link_to "削除", task_path(task.id), method: :delete %></td>
+    </tr>
+  <% end %>
+</table>
