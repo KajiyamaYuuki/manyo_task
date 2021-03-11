@@ -1,6 +1,8 @@
 <h1>Tasks#show</h1>
 
-<p>タスク名：<%= @task.title %></p>
-<p>詳細：<%= @task.content %></p>
+<p><%= t('activerecord.attributes.task.title') %>：<%= @task.title %></p>
+<p><%= t('activerecord.attributes.task.content') %>：<%= @task.content %></p>
 
+<%= link_to "編集", edit_task_path(@task.id) %>
+<%= link_to "削除", task_path(@task.id), method: :delete %>
 <%= link_to "一覧へ戻る", tasks_path %>
