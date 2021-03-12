@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_03_11_053529) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "expired_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "expired_at"
   end
 
 end
