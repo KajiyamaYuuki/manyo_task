@@ -11,6 +11,8 @@
     <%= f.text_field :title %>
     <%= f.label :content, "詳細" %>
     <%= f.text_field :content %>
+    <%= f.label :expired_at, "終了期限" %>
+    <%= f.datetime_field :expired_at %>
   </div>
     <%= f.submit button_text %>
 <% end %>
