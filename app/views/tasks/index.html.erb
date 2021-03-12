@@ -4,19 +4,29 @@
 <%= notice %>
 
 <table>
-  <tr>
-    <th>タスク名</th>
-    <th>詳細</th>
-    <th>終了期限</th>
-  </tr>
-  <% @task.each do |task| %>
+  <thead>
+    <tr>
+      <th>タスク名</th>
+      <th>詳細</th>
+      <th><%= sort_order "expired_at", "終了期限" %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
     <tr id="task_row">
       <td><%= task.title %></td>
       <td><%= task.content %></td>
-      <td><%= task.expired_at %></td>
+      <td>
+        <% if task.expired_at == nil %>
+          <p>期限なし</p>
+        <% else %>
+          <%= task.expired_at %>
+        <% end %>
+      </td>
       <td><%= link_to "詳細", task_path(task.id) %></td>
       <td><%= link_to "編集", edit_task_path(task.id) %></td>
       <td><%= link_to "削除", task_path(task.id), method: :delete %></td>
     </tr>
-  <% end %>
+    <% end %>
+  </tbody>
 </table>
