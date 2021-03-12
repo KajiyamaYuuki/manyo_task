@@ -13,7 +13,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
   describe '一覧表示機能' do
-    let!(:task1) { FactoryBot.create(:task, title: 'task1') }
+    let!(:task1) { FactoryBot.create(:task, title: 'task1', expired_at: '2021-03-31 23:59:59') }
     let!(:task2) { FactoryBot.create(:task, title: 'task2') }
     before { visit tasks_path }
     context '一覧画面に遷移した場合' do
@@ -26,6 +26,14 @@ RSpec.describe 'タスク管理機能', type: :system do
         task_list = all('#task_row')
         expect(task_list[0]).to have_content 'task2'
         expect(task_list[1]).to have_content 'task1'
+      end
+    end
+    context '終了期限をソートしたい場合' do
+      it '終了期限が近い順に上から表示される' do
+        click_on '終了期限'
+        task_list = all('#task_row')
+        expect(task_list[0]).to have_text '2021-03-31 23:59:59'
+        expect(task_list[1]).to have_text '2021-12-31 23:59:59'
       end
     end
   end
