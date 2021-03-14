@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_03_12_091813) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "expired_at"
-    t.text "status", default: "未着手", null: false
+    t.text "status", default: "選択なし", null: false
   end
 
 end

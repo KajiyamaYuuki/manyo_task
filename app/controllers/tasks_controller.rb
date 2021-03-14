@@ -3,7 +3,15 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   def index
     @tasks = Task.order("#{sort_column} #{sort_direction}")
-    @tasks = @tasks.where('title LIKE ?', "%#{params[:search]}%") if params[:search].present?
+    # if params[:task].present?
+      if params[:search_title].present? && params[:search_status].present?
+        @tasks = @tasks.where('title LIKE ?', "%#{params[:search_title]}%").where(status: params[:search_status])
+      elsif params[:search_title].present?
+        @tasks = @tasks.where('title LIKE ?', "%#{params[:search_title]}%")
+      elsif params[:search_status].present?
+        @tasks = @tasks.where(status: params[:search_status])
+      # end
+    end
   end
 
   def new
