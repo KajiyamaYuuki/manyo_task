@@ -12,6 +12,7 @@
   <body>
     <header>
       <h1>Task_Management</h1>
+      <%= link_to "新しくタスクを作成", new_task_path, class: 'btn btn-primary' %>
     </header>
     <%= yield %>
     <footer class="footer fixed-bottom">

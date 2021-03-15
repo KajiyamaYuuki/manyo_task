@@ -1,5 +1,4 @@
-<h2><%= link_to "新しくタスクを作成", new_task_path %></h2>
-
+<h2>generalタスク一覧</h2>
 
 <%= form_with model: @tasks, url: tasks_path, method: :get, local: true do |form| %>
   <%= form.text_field :title %>
@@ -33,9 +32,9 @@
       </td>
       <td><%= task.status %></td>
       <td><%= task.priority %></td>
-      <td><%= link_to "詳細", task_path(task.id), id: "tasks-index__task-show-#{task.id}" %></td>
-      <td><%= link_to "編集", edit_task_path(task.id), id: "tasks-index__task-edit-#{task.id}" %></td>
-      <td><%= link_to "削除", task_path(task.id), method: :delete, id: "tasks-index__task-destroy-#{task.id}" %></td>
+      <td><%= link_to "詳細", task_path(task.id), id: "tasks-index__task-show-#{task.id}", class: "btn btn-outline-primary" %></td>
+      <td><%= link_to "編集", edit_task_path(task.id), id: "tasks-index__task-edit-#{task.id}", class: "btn btn-outline-success"%></td>
+      <td><%= link_to "削除", task_path(task.id), method: :delete, id: "tasks-index__task-destroy-#{task.id}", class: "btn btn-outline-danger" %></td>
     </tr>
     <% end %>
   </tbody>
