@@ -1,9 +1,9 @@
 <h1>Tasks#index</h1>
 <h2><%= link_to "新しくタスクを作成", new_task_path %></h2>
 
-<%= form_with url: tasks_path, method: :get, local: true do |form| %>
-  <%= form.text_field :search_title %>
-  <%= form.select :search_status, [["選択なし", "選択なし"],["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "" %>
+<%= form_with model:@tasks, url: tasks_path, method: :get, local: true do |form| %>
+  <%= form.text_field :title %>
+  <%= form.select :status, [["選択なし", "選択なし"],["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "" %>
   <%= form.submit 'Search', name: nil %>
 <% end %>
 
@@ -16,6 +16,7 @@
       <th>詳細</th>
       <th><%= sort_order "expired_at", "終了期限" %></th>
       <th>ステータス</th>
+      <th>優先度</th>
     </tr>
   </thead>
   <tbody>
@@ -31,6 +32,7 @@
         <% end %>
       </td>
       <td><%= task.status %></td>
+      <td><%= task.priority %></td>
       <td><%= link_to "詳細", task_path(task.id) %></td>
       <td><%= link_to "編集", edit_task_path(task.id) %></td>
       <td><%= link_to "削除", task_path(task.id), method: :delete %></td>

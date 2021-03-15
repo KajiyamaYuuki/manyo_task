@@ -3,14 +3,14 @@ class TasksController < ApplicationController
   helper_method :sort_column, :sort_direction
   def index
     @tasks = Task.order("#{sort_column} #{sort_direction}")
-    # if params[:task].present?
-      if params[:search_title].present? && params[:search_status].present?
-        @tasks = @tasks.where('title LIKE ?', "%#{params[:search_title]}%").where(status: params[:search_status])
-      elsif params[:search_title].present?
-        @tasks = @tasks.where('title LIKE ?', "%#{params[:search_title]}%")
-      elsif params[:search_status].present?
-        @tasks = @tasks.where(status: params[:search_status])
-      # end
+    if params[:task].present?
+      if params[:task][:title].present? && params[:task][:status].present?
+        @tasks = @tasks.where('title LIKE ?', "%#{params[:task][:title]}%").where(status: params[:task][:status])
+      elsif params[:task][:title].present?
+        @tasks = @tasks.where('title LIKE ?', "%#{params[:task][:title]}%")
+      elsif params[:task][:status].present?
+        @tasks = @tasks.where(status: params[:status])
+      end
     end
   end
 
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :expired_at, :status)
+    params.require(:task).permit(:title, :content, :expired_at, :status).merge(priority: params[:task][:priority].to_i)
   end
 
   def set_task
