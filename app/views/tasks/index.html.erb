@@ -1,42 +1,43 @@
-<h2>generalタスク一覧</h2>
+  <h4>generalタスク一覧</h4>
 
-<%= form_with model: @tasks, url: tasks_path, method: :get, local: true do |form| %>
-  <%= form.text_field :title, id: "tasks-index__search-title" %>
-  <%= form.select :status, [["選択なし", "選択なし"],["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "" %>
-  <%= form.submit 'Search', name: nil %>
-<% end %>
+  <%= form_with model: @tasks, url: tasks_path, method: :get, local: true do |form| %>
+    <%= form.text_field :title, id: "tasks-index__search-title" %>
+    <%= form.select :status, [["選択なし", "選択なし"],["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "" %>
+    <%= form.submit 'Search', name: nil, class: "btn btn-outline-info" %>
+  <% end %>
 
-<%= notice %>
+  <%= notice %>
 
-<table>
-  <thead>
-    <tr>
-      <th>タスク名</th>
-      <th>詳細</th>
-      <th><%= sort_order "expired_at", "終了期限" %></th>
-      <th>ステータス</th>
-      <th><%= sort_order "priority", "優先度" %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
-    <tr id="task_row">
-      <td><%= task.title %></td>
-      <td><%= task.content %></td>
-      <td>
-        <% if task.expired_at == nil %>
-          <p>期限なし</p>
-        <% else %>
-          <%= task.expired_at %>
-        <% end %>
-      </td>
-      <td><%= task.status %></td>
-      <td><%= task.priority %></td>
-      <td><%= link_to "詳細", task_path(task.id), id: "tasks-index__task-show-#{task.id}", class: "btn btn-outline-primary" %></td>
-      <td><%= link_to "編集", edit_task_path(task.id), id: "tasks-index__task-edit-#{task.id}", class: "btn btn-outline-success"%></td>
-      <td><%= link_to "削除", task_path(task.id), method: :delete, id: "tasks-index__task-destroy-#{task.id}", class: "btn btn-outline-danger" %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @tasks %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">タスク名</th>
+        <th scope="col">詳細</th>
+        <th scope="col"><%= sort_order "expired_at", "終了期限" %></th>
+        <th scope="col">ステータス</th>
+        <th scope="col"><%= sort_order "priority", "優先度" %></th>
+        <th scope="col", colspan="3">Command</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+      <tr id="task_row">
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td>
+          <% if task.expired_at == nil %>
+            <p>期限なし</p>
+          <% else %>
+            <%= task.expired_at %>
+          <% end %>
+        </td>
+        <td><%= task.status %></td>
+        <td><%= task.priority %></td>
+        <td><%= link_to "詳細", task_path(task.id), id: "tasks-index__task-show-#{task.id}", class: "btn btn-outline-primary" %></td>
+        <td><%= link_to "編集", edit_task_path(task.id), id: "tasks-index__task-edit-#{task.id}", class: "btn btn-outline-success"%></td>
+        <td><%= link_to "削除", task_path(task.id), method: :delete, id: "tasks-index__task-destroy-#{task.id}", class: "btn btn-outline-danger" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @tasks %>

@@ -1,19 +1,19 @@
-<h1>Tasks#show</h1>
+<h4>詳細</h4>
 
-<p>
+<div>
   <%= t('activerecord.attributes.task.title') %>：
   <p class="tasks-show__task-title" id="tasks-show__task-title">
     <%= @task.title %>
   </p>
-</p>
+</div>
 
-<p>
+<div>
   <%= t('activerecord.attributes.task.content') %>：
   <p class="tasks-show__task-content" id="tasks-show__task-content">
     <%= @task.content %>
   </p>
-</p>
+</div>
 
-<%= link_to "編集", edit_task_path(@task.id) %>
-<%= link_to "削除", task_path(@task.id), method: :delete %>
-<%= link_to "一覧へ戻る", tasks_path %>
+<%= link_to "編集", edit_task_path(@task.id), class: "btn btn-outline-success"%>
+<%= link_to "削除", task_path(@task.id), method: :delete, class: "btn btn-outline-danger" %>
+<%= link_to "一覧へ戻る", tasks_path, class: "btn btn-outline-primary" %>
