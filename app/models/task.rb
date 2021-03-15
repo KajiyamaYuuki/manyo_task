@@ -3,8 +3,8 @@ class Task < ApplicationRecord
   validates :content, presence: true
   enum priority: {
     選択なし: 0,
-    高: 1,
+    低: 1,
     中: 2,
-    低: 3
+    高: 3
   }
 end
