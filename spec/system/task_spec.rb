@@ -63,8 +63,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit tasks_path
         # タスクの検索欄に検索ワードを入力する (例: task)
         # 検索ボタンを押す
-        fill_in '#tasks-index__title-search', with: 'sample'
-        binding.pry
+        fill_in 'tasks-index__search-title', with: 'sample'
         expect(page).to have_content 'sample'
       end
     end
