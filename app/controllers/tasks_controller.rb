@@ -1,15 +1,17 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   helper_method :sort_column, :sort_direction
+  PER = 10
+
   def index
-    @tasks = Task.order("#{sort_column} #{sort_direction}")
+    @tasks = Task.order("#{sort_column} #{sort_direction}").page(params[:page]).per(PER)
     if params[:task].present?
       if params[:task][:title].present? && params[:task][:status].present?
         @tasks = @tasks.where('title LIKE ?', "%#{params[:task][:title]}%").where(status: params[:task][:status])
       elsif params[:task][:title].present?
         @tasks = @tasks.where('title LIKE ?', "%#{params[:task][:title]}%")
       elsif params[:task][:status].present?
-        @tasks = @tasks.where(status: params[:status])
+        @tasks = @tasks.where(status: params[:task][:status])
       end
     end
   end
