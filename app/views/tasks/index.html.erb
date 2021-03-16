@@ -3,7 +3,7 @@
   <%= form_with model: @tasks, url: tasks_path, method: :get, local: true do |form| %>
     <%= form.text_field :title, id: "tasks-index__search-title" %>
     <%= form.select :status, [["選択なし", "選択なし"],["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "" %>
-    <%= form.submit 'Search', name: nil, class: "btn btn-outline-info" %>
+    <%= form.submit 'Search', name: nil, class: "btn btn-outline-info", id: "tasks-index__search" %>
   <% end %>
 
   <%= notice %>
@@ -13,7 +13,7 @@
       <tr>
         <th scope="col">タスク名</th>
         <th scope="col">詳細</th>
-        <th scope="col"><%= sort_order "expired_at", "終了期限" %></th>
+        <th scope="col", id="tasks-index__sort-expired_at"><%= sort_order "expired_at", "終了期限" %></th>
         <th scope="col">ステータス</th>
         <th scope="col"><%= sort_order "priority", "優先度" %></th>
         <th scope="col", colspan="3">Command</th>
