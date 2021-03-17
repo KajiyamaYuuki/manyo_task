@@ -7,10 +7,17 @@
       <% end %>
     <% end %>
   <div class="field">
-    <%= f.label :title, "タスク名" %>
-    <%= f.text_field :title %>
-    <%= f.label :content, "詳細" %>
-    <%= f.text_field :content %>
+    <p><%= f.label :title, "タスク名" %>
+    <%= f.text_field :title %></p>
+    <p><%= f.label :content, "詳細" %>
+    <%= f.text_field :content %></p>
+    <p><%= f.label :expired_at, "終了期限" %>
+    <%= f.datetime_field :expired_at %></p>
+    <p><%= f.label :status, "ステータス" %>
+    <%= f.select :status, [["選択してください", "選択なし"],["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]] %></p>
+    <p><%= f.label :priority, "優先度" %>
+    <%= f.select :priority, options_for_select(Task.priorities) %></p>
   </div>
-    <%= f.submit button_text %>
+    <%= f.submit button_text, class: "btn btn-primary" %>
 <% end %>
+<br>

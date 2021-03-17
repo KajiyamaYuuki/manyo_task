@@ -13,7 +13,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
   describe '一覧表示機能' do
-    let!(:task1) { FactoryBot.create(:task, title: 'task1') }
+    let!(:task1) { FactoryBot.create(:task, title: 'task1', expired_at: '2021-03-31 23:59:59') }
     let!(:task2) { FactoryBot.create(:task, title: 'task2') }
     before { visit tasks_path }
     context '一覧画面に遷移した場合' do
@@ -28,14 +28,61 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list[1]).to have_content 'task1'
       end
     end
+    context '終了期限をソートしたい場合' do
+      it '終了期限が近い順に上から表示される' do
+        click_on '終了期限'
+        task_list = all('#task_row')
+        expect(task_list[0]).to have_text '2021-03-31 23:59:59'
+        expect(task_list[1]).to have_text '2021-12-31 23:59:59'
+      end
+    end
   end
   describe '詳細表示機能' do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do
         task = FactoryBot.create(:task)
         visit tasks_path
-        click_on '詳細'
-        expect(page).to have_content 'test_title'
+        click_on "tasks-index__task-show-#{task.id}"
+        expect(
+          find_by_id("tasks-show__task-title")
+        ).to have_content task.title
+        expect(
+          find_by_id("tasks-show__task-content")
+        ).to have_content task.content
+      end
+    end
+  end
+  describe '検索機能' do
+    before do
+      FactoryBot.create(:task, title: "task")
+      FactoryBot.create(:task1, title: "sample")
+      FactoryBot.create(:task2)
+      FactoryBot.create(:task3)
+      visit tasks_path
+    end
+    context 'タイトルであいまい検索をした場合' do
+      it "検索キーワードを含むタスクで絞り込まれる" do
+        # タスクの検索欄に検索ワードを入力する (例: task)
+        fill_in 'tasks-index__search-title', with: 'sample'
+        # 検索ボタンを押す
+        click_on 'tasks-index__search'
+        expect(page).to have_text '2021-01-31 23:59:59'
+      end
+    end
+    context 'ステータス検索をした場合' do
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        select '未着手', from: 'task[status]'
+        click_on 'tasks-index__search'
+        expect(page).to have_text '2021-01-31 23:59:59'
+      end
+    end
+    context 'タイトルのあいまい検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+        fill_in 'tasks-index__search-title', with: 'task3'
+        select '完了', from: 'task[status]'
+        click_on 'tasks-index__search'
+        expect(page).to have_content 'task3'
+        expect(page).to have_text '2021-03-31 23:59:59'
       end
     end
   end
