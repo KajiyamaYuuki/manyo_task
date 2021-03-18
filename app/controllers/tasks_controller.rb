@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   PER = 10
 
   def index
-    @tasks = Task.order("#{sort_column} #{sort_direction}").page(params[:page]).per(PER)
+    @tasks = current_user.tasks.order("#{sort_column} #{sort_direction}").page(params[:page]).per(PER)
     task = params[:task]
     if task.present?
       title = params[:task][:title]
@@ -24,7 +24,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to root_path, notice: 'タスクを新規作成しました'
     else
