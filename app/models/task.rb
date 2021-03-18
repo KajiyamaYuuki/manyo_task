@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
+  belongs_to :user
   enum priority: {
     選択なし: 0,
     低: 1,
