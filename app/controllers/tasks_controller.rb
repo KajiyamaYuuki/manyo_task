@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[show edit update destroy]
+  before_action :set_task, only: %i[ show edit update destroy ]
   helper_method :sort_column, :sort_direction
   PER = 10
 
