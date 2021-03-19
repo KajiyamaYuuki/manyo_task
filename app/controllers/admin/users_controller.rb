@@ -3,7 +3,7 @@ before_action :if_not_admin
 before_action :set_user, only: %i[ show edit update destroy ]
 
   def index
-    @users = User.all
+    @users = User.select(:id, :name, :email, :admin)
   end
 
   def new
