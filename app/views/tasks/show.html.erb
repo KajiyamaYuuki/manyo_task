@@ -1,6 +1,13 @@
 <h4>詳細</h4>
 
 <div>
+  <%= t('activerecord.attributes.user.name') %>：
+  <p>
+    <%= User.find(@task.user_id).name %>
+  </p>
+</div>
+
+<div>
   <%= t('activerecord.attributes.task.title') %>：
   <p class="tasks-show__task-title" id="tasks-show__task-title">
     <%= @task.title %>
@@ -11,6 +18,27 @@
   <%= t('activerecord.attributes.task.content') %>：
   <p class="tasks-show__task-content" id="tasks-show__task-content">
     <%= @task.content %>
+  </p>
+</div>
+
+<div>
+  <%= t('activerecord.attributes.task.expired_at') %>：
+  <p>
+    <%= @task.expired_at %>
+  </p>
+</div>
+
+<div>
+  <%= t('activerecord.attributes.task.status') %>：
+  <p>
+    <%= @task.status %>
+  </p>
+</div>
+
+<div>
+  <%= t('activerecord.attributes.task.priority') %>：
+  <p>
+    <%= @task.priority %>
   </p>
 </div>
 
