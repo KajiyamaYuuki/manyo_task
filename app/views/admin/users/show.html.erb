@@ -1,0 +1,38 @@
+<h4><%= @user.name %>さんの詳細画面</h4>
+
+<p>ユーザーネーム：<%= @user.name %></p>
+<p>メールアドレス：<%= @user.email %></p>
+<p>作成したタスクの数：<%= @user.tasks.count %></p>
+
+<td><%= link_to "編集", edit_admin_user_path(@user.id), class: "btn btn-outline-success"%></td>
+<td><%= link_to "削除", admin_user_path(@user.id), method: :delete, class: "btn btn-outline-danger" %></td>
+
+<h5><%= @user.name %>さんのタスク一覧</h5>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">タスク名</th>
+        <th scope="col">詳細</th>
+        <th scope="col">終了期限</th>
+        <th scope="col">ステータス</th>
+        <th scope="col">優先度</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.tasks.each do |task| %>
+      <tr id="task_row">
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td>
+          <% if task.expired_at == nil %>
+            <p>期限なし</p>
+          <% else %>
+            <%= task.expired_at %>
+          <% end %>
+        </td>
+        <td><%= task.status %></td>
+        <td><%= task.priority %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
