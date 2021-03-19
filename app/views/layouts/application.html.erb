@@ -9,24 +9,30 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="container">
-    <header class="header">
-      <h1 class="navbar-brand">Task_Management</h1>
-      <% if logged_in? %>
-        <%= link_to "マイページ", user_path(current_user.id), class: 'btn btn-outline-secondary btn-sm' %>
-        <%= link_to "新しくタスクを作成", new_task_path, class: 'btn btn-outline-secondary btn-sm' %>
-        <%= link_to "タスク一覧", tasks_path, class: 'btn btn-outline-secondary btn-sm' %>
-        <%= link_to "ログアウト", session_path(current_user.id), method: :delete, class: 'btn btn-outline-secondary btn-sm' %>
-      <% else %>
-        <%= link_to "サインアップ", new_user_path, class: 'btn btn-outline-secondary btn-sm' %>
-        <%= link_to "ログイン", new_session_path, class: 'btn btn-outline-secondary btn-sm' %>
-      <% end %>
-    </header>
-    <div class="wrapper">
-    <%= yield %>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="navbar-brand">Task_Management</h1>
+        <% if logged_in? %>
+          <%= link_to "マイページ", user_path(current_user.id), class: 'btn btn-outline-secondary btn-sm' %>
+          <%= link_to "新しくタスクを作成", new_task_path, class: 'btn btn-outline-secondary btn-sm' %>
+          <%= link_to "タスク一覧", tasks_path, class: 'btn btn-outline-secondary btn-sm' %>
+          <%= link_to "ログアウト", session_path(current_user.id), method: :delete, class: 'btn btn-outline-secondary btn-sm' %>
+            <% if current_user.admin? %>
+              <%= link_to "管理画面", admin_users_path, class: 'btn btn-secondary btn-sm' %>
+              <%= link_to "ユーザー作成", new_admin_user_path, class: 'btn btn-secondary btn-sm' %>
+            <% end %>
+        <% else %>
+          <%= link_to "サインアップ", new_user_path, class: 'btn btn-outline-secondary btn-sm' %>
+          <%= link_to "ログイン", new_session_path, class: 'btn btn-outline-secondary btn-sm' %>
+        <% end %>
+      </header>
+      <div class="wrapper">
+      <%= yield %>
+      </div>
+      <footer class="footer">
+          <p class="text-center">Copyright © 2021 WEF2101 Kajiyama Yuuki.</span>
+      </footer>
     </div>
-    <footer class="footer">
-        <p class="text-center">Copyright © 2021 WEF2101 Kajiyama Yuuki.</span>
-    </footer>
   </body>
 </html>

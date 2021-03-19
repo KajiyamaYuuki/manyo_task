@@ -1,4 +1,4 @@
-<h4>ユーザーデータ編集</h4>
+<h4>ユーザーデータ編集(管理者権限)</h4>
 <%= form_with(model: [:admin, @user], local: true) do |f| %>
   <% if @user.errors.any? %>
     <% @user.errors.full_messages.each do |message| %>
