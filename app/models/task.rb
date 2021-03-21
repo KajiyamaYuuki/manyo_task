@@ -17,4 +17,6 @@ class Task < ApplicationRecord
   scope :search_status, -> (status) do
     where(status: status)
   end
+  has_many :labellings, dependent: :destroy
+  has_many :labels, through: :labelling, source: :label
 end
