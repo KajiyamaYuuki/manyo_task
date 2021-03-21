@@ -7,15 +7,15 @@
   <% end %>
   <div class="field">
     <p><%= f.label :name %>
-    <%= f.text_field :name %></p>
+    <%= f.text_field :name, id: 'users-new__user-name' %></p>
     <p><%= f.label :email %>
-    <%= f.email_field :email %></p>
+    <%= f.email_field :email, id: 'users-new__user-email' %></p>
     <p><%= f.label :password %>
-    <%= f.password_field :password %></p>
+    <%= f.password_field :password, id: 'users-new__user-password' %></p>
     <p><%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %></p>
+    <%= f.password_field :password_confirmation, id: 'users-new__user-password_confirmation' %></p>
   </div>
-  <%= f.submit "Create my account", class: "btn btn-primary" %>
+  <%= f.submit "Create my account", class: "btn btn-primary", id: 'users-new__user-create' %>
 <% end %>
 <br>
 

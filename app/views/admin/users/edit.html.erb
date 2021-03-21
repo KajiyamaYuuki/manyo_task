@@ -7,16 +7,16 @@
   <% end %>
   <div class="field">
     <p><%= f.label :name %>
-    <%= f.text_field :name %></p>
+    <%= f.text_field :name, id:'admin-user__edit-name' %></p>
     <p><%= f.label :email %>
-    <%= f.email_field :email %></p>
+    <%= f.email_field :email, id:'admin-user__edit-email' %></p>
     <p><%= f.label :password %>
-    <%= f.password_field :password %></p>
+    <%= f.password_field :password, id:'admin-user__edit-password' %></p>
     <p><%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %></p>
+    <%= f.password_field :password_confirmation, id:'admin-user__edit-password_confirmation' %></p>
     <p><%= f.label :admin %>
-    <%= f.check_box :admin %></p>
-    <%= f.submit "Update account data", class: "btn btn-primary" %>
+    <%= f.check_box :admin, id:'admin-user__edit-admin' %></p>
+    <%= f.submit "Update account data", class: "btn btn-primary", id:'admin-user__update' %>
   </div>
 <% end %>
 <br>

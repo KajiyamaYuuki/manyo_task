@@ -1,9 +1,16 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
+  before do
+    visit root_path
+    FactoryBot.create(:task_user)
+    fill_in 'sessions-new__email', with: 'task_test_user@email.com'
+    fill_in 'sessions-new__password', with: 'tasktestuser'
+    click_on 'sessions-new__log_in'
+  end
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
-        visit new_task_path
+        click_on 'tasks_new__create'
         fill_in 'タスク名', with: 'task1'
         fill_in '詳細', with: 'task1'
         click_on 'タスクを登録する'
@@ -13,8 +20,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
   describe '一覧表示機能' do
-    let!(:task1) { FactoryBot.create(:task, title: 'task1', expired_at: '2021-03-31 23:59:59') }
-    let!(:task2) { FactoryBot.create(:task, title: 'task2') }
+    FactoryBot.create(:task1)
+    FactoryBot.create(:task2)
     before { visit tasks_path }
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do

@@ -5,8 +5,8 @@
 <h1>Log in</h1>
 <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
   <%= f.label :email %>
-  <%= f.email_field :email %>
+  <%= f.email_field :email, id: 'sessions-new__email' %>
   <%= f.label :password %>
-  <%= f.password_field :password %>
-  <%= f.submit "Log in", class: "btn btn-primary" %>
+  <%= f.password_field :password, id: 'sessions-new__password'%>
+  <%= f.submit "Log in", class: "btn btn-primary", id: "sessions-new__log_in" %>
 <% end %>
