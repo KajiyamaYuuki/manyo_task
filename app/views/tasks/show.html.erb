@@ -42,6 +42,15 @@
   </p>
 </div>
 
+<div>
+  <%= t('activerecord.attributes.task.label') %>：
+  <p>
+    <% @task.labels.each do |label| %>
+      <%= label.name %>
+    <% end %>
+  </p>
+</div>
+
 <%= link_to "編集", edit_task_path(@task.id), class: "btn btn-outline-success"%>
 <%= link_to "削除", task_path(@task.id), method: :delete, class: "btn btn-outline-danger" %>
 <%= link_to "一覧へ戻る", tasks_path, class: "btn btn-outline-primary" %>

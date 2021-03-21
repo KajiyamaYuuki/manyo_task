@@ -1,4 +1,4 @@
 class Label < ApplicationRecord
-  has_many :labellings, dependent: :destroy
-  has_many :tasks, through: :labelling, source: :task
+  has_many :labellings, dependent: :destroy, foreign_key: 'label_id'
+  has_many :tasks, through: :labellings, source: :task
 end

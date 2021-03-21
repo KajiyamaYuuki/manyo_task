@@ -41,6 +41,9 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
+      unless params[:task][:label_ids]
+        @task.labels.delete_all
+      end
       redirect_to tasks_path, notice: 'タスクを更新しました'
     else
       flash.now[:alert] = 'タスクを更新できません'
