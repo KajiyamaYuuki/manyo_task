@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[show edit update destroy]
+  before_action :set_task, only: %i[ show edit update destroy ]
   helper_method :sort_column, :sort_direction
   PER = 10
 
   def index
-    @tasks = Task.order("#{sort_column} #{sort_direction}").page(params[:page]).per(PER)
+    @tasks = current_user.tasks.order("#{sort_column} #{sort_direction}").page(params[:page]).per(PER)
     task = params[:task]
     if task.present?
       title = params[:task][:title]
@@ -24,22 +24,24 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
-      redirect_to root_path, notice: 'タスクを新規作成しました'
+      redirect_to tasks_path, notice: 'タスクを新規作成しました'
     else
       flash.now[:alert] = 'タスクを作成できません'
       render :new
     end
   end
 
-  def show; end
+  def show
+  end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @task.update(task_params)
-      redirect_to root_path, notice: 'タスクを更新しました'
+      redirect_to tasks_path, notice: 'タスクを更新しました'
     else
       flash.now[:alert] = 'タスクを更新できません'
       render :edit
@@ -48,7 +50,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to root_path, notice: 'タスクを削除しました'
+    redirect_to tasks_path, notice: 'タスクを削除しました'
   end
 
   private

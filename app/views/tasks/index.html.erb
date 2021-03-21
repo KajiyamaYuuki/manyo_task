@@ -24,7 +24,7 @@
       <tr id="task_row">
         <td><%= task.title %></td>
         <td><%= task.content %></td>
-        <td>
+        <td id="task_expired_at">
           <% if task.expired_at == nil %>
             <p>期限なし</p>
           <% else %>

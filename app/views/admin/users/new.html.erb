@@ -1,0 +1,24 @@
+<h4>ユーザー作成(管理者権限)</h4>
+<%= form_with(model: [:admin, @user], local: true) do |f| %>
+  <% if @user.errors.any? %>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  <% end %>
+  <div class="field">
+    <p><%= f.label :name %>
+    <%= f.text_field :name, id: 'admin-user__new-name' %></p>
+    <p><%= f.label :email %>
+    <%= f.email_field :email, id: 'admin-user__new-email' %></p>
+    <p><%= f.label :password %>
+    <%= f.password_field :password, id: 'admin-user__new-password' %></p>
+    <p><%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, id: 'admin-user__new-password_confirmation' %></p>
+    <p><%= f.label :admin %>
+    <%= f.check_box :admin, id: 'admin-user__new-admin' %></p>
+    <%= f.submit "Create my account", class: "btn btn-primary", id: 'admin-user__create' %>
+  </div>
+<% end %>
+<br>
+
+<%= link_to "戻る", :back, class: "btn btn-outline-primary" %>

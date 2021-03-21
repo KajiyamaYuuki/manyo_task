@@ -1,0 +1,22 @@
+<h4>サインアップ</h4>
+<%= form_with(model: @user, local: true) do |f| %>
+  <% if @user.errors.any? %>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  <% end %>
+  <div class="field">
+    <p><%= f.label :name %>
+    <%= f.text_field :name, id: 'users-new__user-name' %></p>
+    <p><%= f.label :email %>
+    <%= f.email_field :email, id: 'users-new__user-email' %></p>
+    <p><%= f.label :password %>
+    <%= f.password_field :password, id: 'users-new__user-password' %></p>
+    <p><%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, id: 'users-new__user-password_confirmation' %></p>
+  </div>
+  <%= f.submit "Create my account", class: "btn btn-primary", id: 'users-new__user-create' %>
+<% end %>
+<br>
+
+<p><%= link_to "戻る", :back, class: "btn btn-outline-primary" %></p>

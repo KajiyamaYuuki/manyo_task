@@ -3,29 +3,33 @@ describe 'タスクモデル機能', type: :model do
   describe 'バリデーションのテスト' do
     context 'タスクのタイトルが空の場合' do
       it 'バリデーションにひっかる' do
-        task = Task.new(title: '', content: '失敗テスト')
+        user4 = FactoryBot.create(:user4)
+        task = Task.new(title: '', content: '失敗テスト', user: user4)
         expect(task).not_to be_valid
       end
     end
     context 'タスクの詳細が空の場合' do
       it 'バリデーションにひっかかる' do
-        task = Task.new(title: '失敗', content: '')
+        user4 = FactoryBot.create(:user4)
+        task = Task.new(title: '失敗', content: '', user: user4)
         expect(task).not_to be_valid
       end
     end
     context 'タスクのタイトルと詳細に内容が記載されている場合' do
       it 'バリデーションが通る' do
-        task = Task.new(title: '失敗', content: '失敗テスト')
+        user4 = FactoryBot.create(:user4)
+        task = Task.new(title: '失敗', content: '失敗テスト', user: user4)
         expect(task).to be_valid
       end
     end
   end
   describe '検索機能' do
     # 必要に応じて、テストデータの内容を変更して構わない
-    let!(:task) { FactoryBot.create(:task, title: 'task') }
-    let!(:task1) { FactoryBot.create(:task1, title: "sample", content: 'sample') }
-    let!(:task2) { FactoryBot.create(:task2) }
-    let!(:task3) { FactoryBot.create(:task3) }
+    user5 = FactoryBot.create(:user5)
+    FactoryBot.create(:task, title: 'task', user: user5)
+    FactoryBot.create(:task1, title: "sample", content: 'sample', user: user5)
+    FactoryBot.create(:task2, user: user5)
+    FactoryBot.create(:task3, user: user5)
     context 'scopeメソッドでタイトルのあいまい検索をした場合' do
       it "検索キーワードを含むタスクが絞り込まれる" do
         # search_titleはscopeで提示したタイトル検索用メソッドである。メソッド名は任意で構わない。
