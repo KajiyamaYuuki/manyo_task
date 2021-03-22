@@ -9,12 +9,15 @@ class TasksController < ApplicationController
     if task.present?
       title = params[:task][:title]
       status = params[:task][:status]
+      label = params[:task][:label_id]
       if title.present? && status.present?
         @tasks = @tasks.search_title_status(title, status)
       elsif title.present?
         @tasks = @tasks.search_title(title)
       elsif status.present?
         @tasks = @tasks.search_status(status)
+      elsif label.present?
+        @tasks = @tasks.joins(:labellings).where(labellings: {label_id: label})
       end
     end
   end
