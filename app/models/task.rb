@@ -2,6 +2,8 @@ class Task < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
   belongs_to :user
+  has_many :labellings, dependent: :destroy, foreign_key: 'task_id'
+  has_many :labels, through: :labellings, source: :label
   enum priority: {
     選択なし: 0,
     低: 1,

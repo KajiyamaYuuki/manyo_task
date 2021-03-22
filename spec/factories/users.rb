@@ -41,6 +41,13 @@ FactoryBot.define do
     admin { 'false' }
   end
 
+  factory :user7, class: User do
+    name { 'user7' }
+    email { 'user7@email.com' }
+    password { '77777777' }
+    admin { 'false' }
+  end
+
   factory :admin_user, class: User do
     name { 'admin_user' }
     email { 'admin@email.com' }

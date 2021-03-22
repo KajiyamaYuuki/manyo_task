@@ -9,12 +9,15 @@ class TasksController < ApplicationController
     if task.present?
       title = params[:task][:title]
       status = params[:task][:status]
+      label = params[:task][:label_id]
       if title.present? && status.present?
         @tasks = @tasks.search_title_status(title, status)
       elsif title.present?
         @tasks = @tasks.search_title(title)
       elsif status.present?
         @tasks = @tasks.search_status(status)
+      elsif label.present?
+        @tasks = @tasks.joins(:labellings).where(labellings: {label_id: label})
       end
     end
   end
@@ -41,6 +44,9 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
+      unless params[:task][:label_ids]
+        @task.labels.delete_all
+      end
       redirect_to tasks_path, notice: 'タスクを更新しました'
     else
       flash.now[:alert] = 'タスクを更新できません'
@@ -55,7 +61,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :content, :expired_at, :status).merge(priority: params[:task][:priority].to_i)
+    params.require(:task).permit(:title, :content, :expired_at, :status, label_ids: [] ).merge(priority: params[:task][:priority].to_i)
   end
 
   def set_task

@@ -110,4 +110,67 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
   end
+  describe 'ラベル機能' do
+    before do
+      visit root_path
+      FactoryBot.create(:user6)
+      FactoryBot.create(:label1)
+      FactoryBot.create(:label2)
+      FactoryBot.create(:label3)
+      fill_in 'sessions-new__email', with: 'user6@email.com'
+      fill_in 'sessions-new__password', with: '66666666'
+      click_on 'sessions-new__log_in'
+    end
+    context 'タスクを新規作成する場合' do
+      it 'タスクにラベルをつけられる' do
+        click_on 'tasks_new__create'
+        fill_in 'タスク名', with: 'label1'
+        fill_in '詳細', with: 'label1'
+        check 'label1'
+        click_on 'タスクを登録する'
+        visit tasks_path
+        expect(page).to have_content 'label1'
+      end
+      it 'タスクに複数のラベルをつけられる' do
+        click_on 'tasks_new__create'
+        fill_in 'タスク名', with: 'label1.2'
+        fill_in '詳細', with: 'label1.2'
+        check 'label1'
+        check 'label2'
+        click_on 'タスクを登録する'
+        visit tasks_path
+        expect(page).to have_content 'label1'
+        expect(page).to have_content 'label2'
+      end
+    end
+  end
+  describe 'ラベル検索機能' do
+    before do
+      visit root_path
+      user7 = FactoryBot.create(:user7)
+      fill_in 'sessions-new__email', with: 'user7@email.com'
+      fill_in 'sessions-new__password', with: '77777777'
+      click_on 'sessions-new__log_in'
+      label1 = FactoryBot.create(:label1)
+      label2 = FactoryBot.create(:label2)
+      label3 = FactoryBot.create(:label3)
+      task4 = FactoryBot.create(:task4, user: user7)
+      task5 = FactoryBot.create(:task5, user: user7)
+      task6 = FactoryBot.create(:task6, user: user7)
+      task7 = FactoryBot.create(:task7, user: user7)
+      FactoryBot.create(:labelling, task: task4, label: label1)
+      FactoryBot.create(:labelling, task: task5, label: label2)
+      FactoryBot.create(:labelling, task: task6, label: label3)
+      FactoryBot.create(:labelling, task: task7, label: label1)
+      visit tasks_path
+    end
+    context 'ラベルの検索機能を実行した場合' do
+      it '該当ラベル付きのタスクが絞り込まれる' do
+        select 'label1', from: 'task[label_id]'
+        click_on 'tasks-index__search'
+        expect(page).to_not have_content 'task5'
+        expect(page).to_not have_content 'task6'
+      end
+    end
+  end
 end
