@@ -17,6 +17,7 @@
         <th scope="col", id="tasks-index__sort-expired_at"><%= sort_order "expired_at", "終了期限" %></th>
         <th scope="col">ステータス</th>
         <th scope="col"><%= sort_order "priority", "優先度" %></th>
+        <th scope="col">ラベル</th>
         <th scope="col", colspan="3">Command</th>
       </tr>
     </thead>
@@ -34,6 +35,11 @@
         </td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>
+        <td>
+        <% task.labels.each do |label| %>
+          <%= label.name %>
+        <% end %>
+        </td>
         <td><%= link_to "詳細", task_path(task.id), id: "tasks-index__task-show-#{task.id}", class: "btn btn-outline-primary" %></td>
         <td><%= link_to "編集", edit_task_path(task.id), id: "tasks-index__task-edit-#{task.id}", class: "btn btn-outline-success"%></td>
         <td><%= link_to "削除", task_path(task.id), method: :delete, id: "tasks-index__task-destroy-#{task.id}", class: "btn btn-outline-danger" %></td>
